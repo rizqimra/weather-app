@@ -14,11 +14,11 @@ const Card = ({ weather, error }) => {
 
     const options = {
       weekday: "long", // Display the full weekday name
-      month: "long", // Display the full month name
-      day: "numeric", // Display the day of the month
+      day: "2-digit", // Display the day of the month
+      month: "2-digit", // Display the full month name
       year: "numeric", // Display the full year
-      hour: "numeric", // Display the hour
-      minute: "numeric", // Display the minute
+      hour: "2-digit", // Display the hour
+      minute: "2-digit", // Display the minute
     };
 
     // Format the date and time according to the specified options
@@ -32,7 +32,7 @@ const Card = ({ weather, error }) => {
 
   return (
     <div
-      className={`flex p-6 backdrop-blur-lg backdrop-filter bg-gray-300/30 w-2/3 h-max rounded-xl shadow-lg border-gray-300 ${
+      className={`flex text-gray-800 p-6 backdrop-blur-lg backdrop-filter bg-gray-300/30 w-11/12 sm:w-2/3 h-max rounded-xl shadow-lg border-gray-300 ${
         !weather.name && !error ? "hidden" : ""
       }`}
     >

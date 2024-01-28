@@ -11,4 +11,17 @@
 
 body {
   background-image: url(assets/day-sky.jpg);
+  background-size: cover;
+  animation: slideIn 80s infinite alternate forwards;
+}
+
+@keyframes slideIn {
+  from {
+    background-position: top;
+    background-size: 3000px;
+  }
+  to {
+    background-position: -100px 0;
+    background-size: 2750px;
+  }
 }
