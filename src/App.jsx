@@ -34,10 +34,8 @@ function App() {
   };
 
   const [location, setLocation] = useState("");
-  const [locations, setLocations] = useState([]);
   const [weather, setWeather] = useState({});
   const [error, setError] = useState(null);
-  const [suggestions, setSuggestions] = useState([]);
   const [history, setHistory] = useState([
     "Jakarta",
     "Tokyo",
@@ -53,26 +51,6 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    const loadLocations = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/box/city?bbox=-180,-90,180,90,1000&appid=${apiKey}`
-        );
-
-        const data = response.data.list || [];
-
-        if (response.status === 200) {
-          setLocations(data);
-        }
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
-
-    loadLocations();
-  }, [apiKey]);
-
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       fetchWeatherData(location);
@@ -81,20 +59,12 @@ function App() {
   };
 
   const handleInputChange = (e) => {
-    let matches = [];
-    if (e.length > 0) {
-      matches = locations.filter(loc => {
-        const regex = new RegExp(`${e}`, "gi")
-        return regex;
-      })
-    }
-    
     const value = e.target.value;
     setLocation(value);
-  };
+  }; 
 
   const handleCityClick = (city) => {
-    setLocation(city);
+    setLocation(city.toLowerCase());
     fetchWeatherData(city);
   };
 
