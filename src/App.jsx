@@ -86,19 +86,23 @@ function App() {
       return newHistory;
     });
   };
-  
 
   return (
-    <div className="flex flex-col justify-center items-center my-24 gap-5">
-      <QuickNav history={history} onCityClick={handleCityClick} />
-      <SearchBar
-        location={location}
-        handleInputChange={handleInputChange}
-        handleKeyPress={handleKeyPress}
-        fetchWeatherData={fetchWeatherData}
-      />
-      <Card weather={weather} error={error} />
-    </div>
+    <>
+      <div className="cloud-container cloud1"></div>
+      <div className="cloud-container cloud2"></div>
+      <div className="cloud-container cloud3"></div>
+      <div className="flex flex-col justify-center items-center gap-5">
+        <QuickNav history={history} onCityClick={handleCityClick} />
+        <SearchBar
+          location={location}
+          handleInputChange={handleInputChange}
+          handleKeyPress={handleKeyPress}
+          fetchWeatherData={fetchWeatherData}
+        />
+        <Card weather={weather} error={error} />
+      </div>
+    </>
   );
 }
 

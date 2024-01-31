@@ -1,38 +1,36 @@
 import React from "react";
 
 const Card = ({ weather, error }) => {
-  console.log(weather);
-
   const getCurrentDate = () => {
     const now = new Date();
-    const timezoneOffsetInSeconds = weather.timezone || 0; // Get the timezone offset from the API response
+    const timezoneOffsetInSeconds = weather.timezone || 0;
     const localTime =
       now.getTime() +
       now.getTimezoneOffset() * 60000 +
       timezoneOffsetInSeconds * 1000;
     const localDate = new Date(localTime);
 
-    const options = {
-      weekday: "long", // Display the full weekday name
-      day: "2-digit", // Display the day of the month
-      month: "2-digit", // Display the full month name
-      year: "numeric", // Display the full year
-      hour: "2-digit", // Display the hour
-      minute: "2-digit", // Display the minute
+    const optionsDate = {
+      weekday: "long",
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
     };
 
-    // Format the date and time according to the specified options
-    const formattedDate = localDate.toLocaleString("default", options);
-
-    return {
-      date: formattedDate.split("at ")[0],
-      time: formattedDate.split("at ")[1],
+    const optionsTime = {
+      hour: "2-digit",
+      minute: "2-digit",
     };
+
+    const formattedDate = localDate.toLocaleString("default", optionsDate);
+    const formattedTime = localDate.toLocaleString("default", optionsTime);
+
+    return `${formattedDate} | ${formattedTime}`;
   };
 
   return (
     <div
-      className={`flex text-gray-800 p-6 backdrop-blur-lg backdrop-filter bg-gray-300/30 w-11/12 sm:w-2/3 h-max rounded-xl shadow-lg border-gray-300 ${
+      className={`flex text-gray-800 px-6 backdrop-blur-lg backdrop-filter bg-gray-300/30 w-11/12 sm:w-2/3 h-max rounded-xl shadow-lg border-gray-300 ${
         !weather.name && !error ? "hidden" : ""
       }`}
     >
@@ -44,23 +42,47 @@ const Card = ({ weather, error }) => {
         <div className="w-full">
           {weather.name && (
             <>
-              <h2 className="text-base font-semibold uppercase">
-                {weather.name}, {weather.sys.country}
-              </h2>
-              <p className="text-xs">{getCurrentDate().date}</p>
-              <p className="text-xs">{getCurrentDate().time}</p>
-              <div className="flex flex-col items-center gap-2 w-full">
-                <i className="fas fa-sun" style={{ color: "gold" }} />
-                <p className="text-5xl font-semibold">
+              <div className="flex justify-between items-center">
+                <div className="flex flex-col justify-start">
+                  <h2 className="text-sm sm:text-base font-semibold uppercase">
+                    {weather.name}, {weather.sys.country}
+                  </h2>
+                  <p className="text-[10px] sm:text-xs">{getCurrentDate()}</p>
+                </div>
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                  alt={weather.weather[0].description}
+                />
+              </div>
+              <div className="flex flex-col justify-center items-center py-5 gap-3 w-full">
+                <h1 className="text-5xl font-semibold">
                   {(weather.main.temp - 273.15).toFixed(1)}°C
-                </p>
-                <h2 className="capitalize font-medium">
+                </h1>
+                <h2 className="capitalize font-medium text-xl">
                   {weather.weather[0].description}
                 </h2>
               </div>
-              <div className="flex justify-around text-sm w-full">
-                <p>Humidity: {weather.main.humidity}%</p>
-                <p>Wind Speed: {(weather.wind.speed * 3.6).toFixed(2)}km/h</p>
+              <div className="flex justify-evenly flex-wrap items-center w-full pb-6">
+                <div className="mini-card backdrop-blur-lg backdrop-filter bg-gray-300/30 border-gray-300">
+                  <i className="fas fa-temperature-half"></i>
+                  <p>Feels Like</p>
+                  <p>{(weather.main.feels_like - 273.15).toFixed(1)}°C</p>
+                </div>
+                <div className="mini-card backdrop-blur-lg backdrop-filter bg-gray-300/30 border-gray-300">
+                  <i className="fas fa-droplet"></i>
+                  <p>Humidity</p>
+                  <p>{weather.main.humidity}%</p>
+                </div>
+                <div className="mini-card backdrop-blur-lg backdrop-filter bg-gray-300/30 border-gray-300">
+                  <i className="fas fa-gauge-high"></i>
+                  <p>Pressure</p>
+                  <p>{weather.main.pressure}Pa</p>
+                </div>
+                <div className="mini-card backdrop-blur-lg backdrop-filter bg-gray-300/30 border-gray-300">
+                  <i className="fas fa-wind"></i>
+                  <p>Wind Speed</p>
+                  <p>{(weather.wind.speed * 3.6).toFixed(2)}km/h</p>
+                </div>
               </div>
             </>
           )}

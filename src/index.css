@@ -10,18 +10,88 @@
 }
 
 body {
-  background-image: url(assets/day-sky.jpg);
+  background-color: skyblue;
   background-size: cover;
-  animation: slideIn 80s infinite alternate forwards;
+}
+
+.mini-card {
+  width: 40%;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cloud-container {
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 50%;
+  position: absolute;
+  transform: scaleY(-1);
+  background-size: cover;
+}
+
+.cloud1 {
+  background-image: url("./assets/cloud1.svg");
+  z-index: -1;
+  animation: slideIn 125s linear infinite both;
+  margin-top: -200px;
+}
+
+.cloud2 {
+  background-image: url("./assets/cloud2.svg");
+  z-index: -2;
+  animation: slideIn 75s linear 2s infinite both;
+  margin-top: -250px;
+}
+
+.cloud3 {
+  background-image: url("./assets/cloud3.svg");
+  z-index: -3;
+  animation: slideIn 100s linear 3s infinite both;
+  margin-top: -225px;
 }
 
 @keyframes slideIn {
   from {
-    background-position: top;
-    background-size: 3000px;
+    background-position: 100% 0;
+    background-size: 200%;
   }
   to {
-    background-position: -100px 0;
-    background-size: 2750px;
+    background-position: -100% 0;
+    background-size: 200%;
+  }
+}
+
+@media (max-width: 767px) {
+  .cloud-container {
+    background-repeat: repeat;
+    width: 100vw;
+    height: 50%;
+    position: absolute;
+    transform: scaleY(-1.5);
+    background-size: cover;
+  }
+
+  .cloud1 {
+    background-image: url("./assets/cloud1.svg");
+    z-index: -1;
+    animation: slideIn 125s linear infinite both;
+    margin-top: -300px;
+  }
+  
+  .cloud2 {
+    background-image: url("./assets/cloud2.svg");
+    z-index: -2;
+    animation: slideIn 75s linear 2s infinite both;
+    margin-top: -350px;
+  }
+  
+  .cloud3 {
+    background-image: url("./assets/cloud3.svg");
+    z-index: -3;
+    animation: slideIn 100s linear 3s infinite both;
+    margin-top: -325px;
   }
 }
