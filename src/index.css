@@ -10,8 +10,10 @@
 }
 
 body {
-  background-color: skyblue;
-  background-size: cover;
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
 }
 
 .mini-card {
@@ -23,7 +25,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.cloud-container {
+/* .cloud-container {
   background-repeat: no-repeat;
   width: 100vw;
   height: 50%;
@@ -94,4 +96,4 @@ body {
     animation: slideIn 100s linear 3s infinite both;
     margin-top: -325px;
   }
-}
+} */

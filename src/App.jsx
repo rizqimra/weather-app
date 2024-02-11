@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import SearchBar from "./components/SearchBar.jsx";
@@ -8,7 +8,7 @@ import QuickNav from "./components/QuickNav.jsx";
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const fetchWeatherData = async (inputLocation) => {
+  const fetchWeatherData = useCallback(async (inputLocation) => {
     try {
       if (inputLocation.trim() === "") {
         setError(null);
@@ -31,7 +31,7 @@ function App() {
       setWeather({});
       setError("Couldn't fetch weather data");
     }
-  };
+  }, [apiKey]);
 
   const [location, setLocation] = useState("");
   const [weather, setWeather] = useState({});
@@ -51,6 +51,13 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (history.length > 0) {
+      setLocation(history[0].toLowerCase());
+      fetchWeatherData(history[0]);
+    }
+  }, [history, fetchWeatherData]);
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       fetchWeatherData(location);
@@ -61,7 +68,7 @@ function App() {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setLocation(value);
-  }; 
+  };
 
   const handleCityClick = (city) => {
     setLocation(city.toLowerCase());
@@ -73,15 +80,13 @@ function App() {
       const existingIndex = prevHistory.findIndex(
         (city) => city.toLowerCase() === enteredCity.toLowerCase()
       );
-  
-      // If the city is already in history, don't update it
+
       if (existingIndex !== -1) {
         return prevHistory;
       }
-  
-      // Add the entered city to the beginning of the array
+
       const newHistory = [enteredCity, ...prevHistory.slice(0, 4)];
-  
+
       localStorage.setItem("cityHistory", JSON.stringify(newHistory));
       return newHistory;
     });
@@ -89,9 +94,6 @@ function App() {
 
   return (
     <>
-      <div className="cloud-container cloud1"></div>
-      <div className="cloud-container cloud2"></div>
-      <div className="cloud-container cloud3"></div>
       <div className="flex flex-col justify-center items-center gap-5">
         <QuickNav history={history} onCityClick={handleCityClick} />
         <SearchBar

@@ -76,12 +76,12 @@ const Card = ({ weather, error }) => {
                 <div className="mini-card backdrop-blur-lg backdrop-filter bg-gray-300/30 border-gray-300">
                   <i className="fas fa-gauge-high"></i>
                   <p>Pressure</p>
-                  <p>{weather.main.pressure}Pa</p>
+                  <p>{weather.main.pressure} hPa</p>
                 </div>
                 <div className="mini-card backdrop-blur-lg backdrop-filter bg-gray-300/30 border-gray-300">
                   <i className="fas fa-wind"></i>
                   <p>Wind Speed</p>
-                  <p>{(weather.wind.speed * 3.6).toFixed(2)}km/h</p>
+                  <p>{(weather.wind.speed * 3.6).toFixed(2)} km/h</p>
                 </div>
               </div>
             </>
